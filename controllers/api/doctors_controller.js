@@ -1,6 +1,5 @@
 //Importing required libraries
 const Doctor = require('../../models/doctors');
-const Patient = require('../../models/patients');
 const jwt = require('jsonwebtoken');
 const secretKey = "Az12Eb4Tk5Ty";
 
