@@ -1,0 +1,15 @@
+{
+  "name": "hospitalapi",
+  "version": "1.0.0",
+  "description": "An API for the doctors of a hospital which has been allocated by the govt for testing and quarantine of COVID-19 patients",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Eldhose Kuriakose",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1",
+    "mongoose": "^5.9.14"
+  }
+}
