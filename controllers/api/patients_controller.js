@@ -28,13 +28,13 @@ module.exports.registerPatient = async (req, res) => {
             const newPatient = await Patient.create({
                 name: req.body.name,
                 phone: req.body.phone,
-                doctor: req.user
+                doctor: req.doctor
             });
             //Save patient to doctor model
             doctor.patients.push(newPatient);
             doctor.save();
             return res.status(200).json({
-                patient: req.body.phone._id,
+                patient: req.body.phone.id,
                 message: "Patient registration successful"
             });
         }else{
@@ -66,7 +66,7 @@ module.exports.createReport = async (req, res) => {
             const patient = await Patient.findOne({_id: req.params.id});
             if(patient){
                 //If patient found
-                const doctor = await Doctor.findOne({_id: req.user});
+                const doctor = await Doctor.findOne({_id: req.doctor});
                 if(doctor){
                     //If doctor found create new report
                     const newReport = await Report.create({
@@ -118,10 +118,20 @@ module.exports.allReports = async (req, res) => {
                         populate: [{path: 'doctor', select: '_id name'},
                         {path: 'patient', select: '_id name'}]});
         if(patient){
-            //If patient found, return reports of the patient
+            //If patient found search for reports
+            const report = await(Report.find({patient: req.params.id}));
+            let answer = [];
+            // Getting id and status of reports
+            for (let i = 0; i < report.length; i++) {
+                answer.push({
+                    id: report[i].id,
+                    status: report[i].status
+                });
+            }
+            //return reports of the patient
             return res.status(200).json({
                 Patient_name: patient.name,
-                Reports: patient.reports
+                Reports: answer
             });
         }else{
             return res.status(404).json({
