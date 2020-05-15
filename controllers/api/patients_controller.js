@@ -34,7 +34,7 @@ module.exports.registerPatient = async (req, res) => {
             doctor.patients.push(newPatient);
             doctor.save();
             return res.status(200).json({
-                patient: req.body.phone.id,
+                patient: newPatient,
                 message: "Patient registration successful"
             });
         }else{
