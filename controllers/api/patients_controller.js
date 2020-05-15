@@ -28,12 +28,13 @@ module.exports.registerPatient = async (req, res) => {
             const newPatient = await Patient.create({
                 name: req.body.name,
                 phone: req.body.phone,
-                doctor: req.doctor
+                doctor: req.user
             });
             //Save patient to doctor model
             doctor.patients.push(newPatient);
             doctor.save();
             return res.status(200).json({
+                patient: req.body.phone._id,
                 message: "Patient registration successful"
             });
         }else{
@@ -58,14 +59,14 @@ module.exports.createReport = async (req, res) => {
         });
     }
     try {
-        //If status available
+        //If status available and it is valid
         const report = Report.schema.path('status').enumValues.includes(req.body.status);
         if(report){
             //If report found
             const patient = await Patient.findOne({_id: req.params.id});
             if(patient){
                 //If patient found
-                const doctor = await Doctor.findOne({_id: req.doctor});
+                const doctor = await Doctor.findOne({_id: req.user});
                 if(doctor){
                     //If doctor found create new report
                     const newReport = await Report.create({
@@ -80,9 +81,9 @@ module.exports.createReport = async (req, res) => {
                     return res.status(200).json({
                         message: "Report created successfully",
                         report: {
-                        doctor: doctor,
-                        patient: patient,
-                        status: req.body.status
+                        doctor_name: doctor.name,
+                        patient_name: patient.name,
+                        status_of_report: req.body.status
                         }
                     });
                 }else{

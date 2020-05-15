@@ -21,7 +21,7 @@ module.exports.register = async (req, res) => {
             });
         }
         //Creating account for doctor
-        await Doctor.create({
+        Doctor.create({
             name: req.body.name,
             email: req.body.email,
             password: req.body.password

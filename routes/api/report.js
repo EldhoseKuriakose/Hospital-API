@@ -8,7 +8,7 @@ const router = express.Router();
 const reportController = require('../../controllers/api/reports_controller');
 
 //Routes through reports_controller API
-router.get('/:status', reportController.reportByStatus);
+router.get('/', reportController.reportByStatus);
 
 //Exporting router
 module.exports = router;

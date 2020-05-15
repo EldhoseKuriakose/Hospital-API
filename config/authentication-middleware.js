@@ -8,7 +8,7 @@ module.exports.authenticate = (req, res, next) => {
         //If token found in the header
         try {
             const token = jwt.verify(req.headers.token, secretKey);
-            req.doctor = token._id;
+            req.user = token._id;
             next();
         } catch (err) {
             //Token is invalid
