@@ -17,9 +17,12 @@ app.use('/', router);
 
 
 //Server listening to port
-app.listen(port, function(err){
+const Server = app.listen(port, function(err){
     if(err){
         console.log(`Error:, ${err}`);
     }
     console.log(`Server is running on port: ${port}`);
 });
+
+//Exporting Server
+module.exports = Server;
