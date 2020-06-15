@@ -17,4 +17,4 @@
  6. `GET` - `/reports` - Provide status in the params
  
  ###### Technologies used
- HTML, CSS, JavaScript, nodeJS, ExpressJS, MongoDB
+ nodeJS, ExpressJS, MongoDB
